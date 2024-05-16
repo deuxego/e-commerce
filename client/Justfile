@@ -1,0 +1,2 @@
+orval:
+  curl -o ./src/shared/api/schema.yaml http://localhost:3000/api-yaml && npx orval

@@ -1,0 +1,457 @@
+openapi: 3.0.0
+paths:
+  /auth/sign-up:
+    post:
+      operationId: AuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpDto'
+      responses:
+        '201':
+          description: ''
+  /auth/sign-in:
+    post:
+      operationId: AuthController_signIn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInDto'
+      responses:
+        '200':
+          description: ''
+  /auth/sign-out:
+    post:
+      operationId: AuthController_signOut
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /auth/session:
+    get:
+      operationId: AuthController_getSession
+      parameters: []
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSessionInfoDto'
+  /cart:
+    get:
+      operationId: CartController_getCart
+      parameters: []
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCartDto'
+    post:
+      operationId: CartController_addProductToCart
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductToCart'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCartDto'
+    delete:
+      operationId: CartController_removeProductFromCart
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductToCart'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCartDto'
+  /category:
+    post:
+      operationId: CategoryController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryDto'
+      responses:
+        '201':
+          description: ''
+    get:
+      operationId: CategoryController_findAll
+      parameters: []
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCategoryDto'
+  /category/{id}:
+    get:
+      operationId: CategoryController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCategoryDto'
+    patch:
+      operationId: CategoryController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryDto'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCategoryDto'
+    delete:
+      operationId: CategoryController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCategoryDto'
+  /product:
+    get:
+      operationId: ProductController_getProducts
+      parameters:
+        - name: query
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetProductDto'
+    post:
+      operationId: ProductController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductDto'
+      responses:
+        '201':
+          description: ''
+  /product/{id}:
+    get:
+      operationId: ProductController_getProduct
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductDto'
+    patch:
+      operationId: ProductController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductDto'
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductDto'
+    delete:
+      operationId: ProductController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductDto'
+info:
+  title: e-commerce
+  description: The e-commerce api
+  version: 1.0.0
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    SignUpDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@gmail.com
+        password:
+          type: string
+          example: '1234'
+      required:
+        - email
+        - password
+    SignInDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@gmail.com
+        password:
+          type: string
+          example: '1234'
+      required:
+        - email
+        - password
+    GetSessionInfoDto:
+      type: object
+      properties: {}
+    CartItemCartProductField:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: string
+        imageUrl:
+          type: string
+      required:
+        - name
+        - price
+        - imageUrl
+    GetCartItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        quantity:
+          type: number
+        product:
+          $ref: '#/components/schemas/CartItemCartProductField'
+      required:
+        - id
+        - productId
+        - productName
+        - quantity
+        - product
+    GetCartDto:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        cartItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetCartItemDto'
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - userId
+        - cartItems
+        - createdAt
+        - updatedAt
+    AddProductToCart:
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: number
+      required:
+        - productId
+        - quantity
+    CreateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Category
+        description:
+          type: string
+          example: Category description
+      required:
+        - name
+    GetCategoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        imageUrl:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+        - imageUrl
+        - description
+    UpdateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: New Category Name
+        description:
+          type: string
+          example: New Category description
+    GetProductDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        price:
+          type: number
+        stock_quantity:
+          type: number
+        categoryId:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - imageUrl
+        - price
+        - stock_quantity
+        - categoryId
+    CreateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: MacBook Pro
+        description:
+          type: string
+          example: Wow some product description
+        imageUrl:
+          type: string
+        price:
+          type: string
+          example: 99.99
+        stock_quantity:
+          type: number
+          example: 1000
+        categoryId:
+          type: string
+          example: 570ac908-fc26-4cb4-9253-aa898896db86
+      required:
+        - name
+        - description
+        - price
+        - categoryId
+    UpdateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        price:
+          type: string
+        stock_quantity:
+          type: number
+        categoryId:
+          type: string
+      required:
+        - name
+        - description
+        - imageUrl
+        - price
+        - stock_quantity
+        - categoryId

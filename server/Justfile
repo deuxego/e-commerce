@@ -1,0 +1,2 @@
+want NAME:
+  nest g mo {{NAME}} && nest g co {{NAME}} --no-spec && nest g s {{NAME}} --no-spec
